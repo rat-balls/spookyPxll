@@ -26,7 +26,9 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = -2f;
         }
 
-        if(isGrounded && Input.GetButtonDown("Jump"))
+        float mouseScroll = Input.mouseScrollDelta.y;
+
+        if(isGrounded && (mouseScroll > 0) || isGrounded && Input.GetButtonDown("Jump"))
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
@@ -41,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
             speed = 8f;
         }
 
+        
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 

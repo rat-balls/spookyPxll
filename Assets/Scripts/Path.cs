@@ -10,6 +10,12 @@ public class Path : MonoBehaviour
 
     private Vector3 lastpos;
 
+    public Light flashlight;
+    public Light flashlightHalo;
+    public MeshRenderer playerMesh;
+    public Camera playerCam;
+
+    private bool Cinematic = true;
     private int pointsIndex;
     // Start is called before the first frame update
     void Start()
@@ -31,6 +37,12 @@ public class Path : MonoBehaviour
             }
             Vector3 direction = transform.position - lastpos;
             transform.forward = Vector3.Lerp(transform.forward, direction, 0.1f);
+        } else if(Cinematic == true){
+            playerCam.enabled = !playerCam.enabled;
+            flashlight.enabled = !flashlight.enabled;
+            flashlightHalo.enabled = !flashlightHalo.enabled;
+            playerMesh.enabled = playerMesh.enabled;
+            Cinematic = false;
         }
         lastpos = transform.position;
     }
