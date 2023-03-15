@@ -14,6 +14,8 @@ public class Path : MonoBehaviour
     public Light flashlightHalo;
     public MeshRenderer playerMesh;
     public Camera playerCam;
+    public AudioSource radio;
+    public AudioLowPassFilter bassFilter;
 
     private bool Cinematic = true;
     private int pointsIndex;
@@ -41,7 +43,9 @@ public class Path : MonoBehaviour
             playerCam.enabled = !playerCam.enabled;
             flashlight.enabled = !flashlight.enabled;
             flashlightHalo.enabled = !flashlightHalo.enabled;
-            playerMesh.enabled = playerMesh.enabled;
+            playerMesh.enabled = !playerMesh.enabled;
+            bassFilter.enabled = !bassFilter.enabled;
+            radio.spatialBlend = 1;
             Cinematic = false;
         }
         lastpos = transform.position;
