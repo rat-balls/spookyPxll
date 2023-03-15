@@ -15,7 +15,7 @@ public class Path : MonoBehaviour
     public MeshRenderer playerMesh;
     public Camera playerCam;
 
-    private bool Cinematic;
+    private bool Cinematic = true;
     private int pointsIndex;
     // Start is called before the first frame update
     void Start()
