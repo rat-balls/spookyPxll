@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 velocity;
     bool isGrounded;
+    float z;
 
     // Update is called once per frame
     void Update()
@@ -41,8 +42,29 @@ public class PlayerMovement : MonoBehaviour
             speed = 8f;
         }
 
+        
         float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        
+
+        if(Input.GetKeyDown(KeyCode.Z))
+        {
+            z = 1;
+        }
+
+        if(Input.GetKeyUp(KeyCode.Z))
+        {
+            z = 0;
+        }
+
+        if(Input.GetKeyDown(KeyCode.S))
+        {
+            z = -1;
+        }
+
+        if(Input.GetKeyDown(KeyCode.S))
+        {
+            z = 0;
+        }
 
         Vector3 move = transform.right * x + transform.forward * z;
 
