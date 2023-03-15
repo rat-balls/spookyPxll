@@ -7,7 +7,8 @@ public class CarCameraMovement : MonoBehaviour
 {
     public float SpeedV = 0.2f;
     public float SpeedH = 0.2f;
-
+    public Vector2 ClampX;
+    public Vector2 ClampY;
     private float rotationX = 0.0f;
     private float rotationY = 0.0f;
 
@@ -17,10 +18,10 @@ public class CarCameraMovement : MonoBehaviour
         rotationY += SpeedV * Input.GetAxis("Mouse X");
         rotationX -= SpeedH * Input.GetAxis("Mouse Y");
 
-        rotationX = Mathf.Clamp(rotationX, -30f, 30f);
-        rotationY = Mathf.Clamp(rotationY, 160f, 200f);
+        rotationX = Mathf.Clamp(rotationX, ClampX.x, ClampX.y);
+        rotationY = Mathf.Clamp(rotationY, ClampY.x, ClampY.y);
 
 
-        transform.eulerAngles = new Vector3(rotationX, rotationY, 0);
+        transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
     }
 }
