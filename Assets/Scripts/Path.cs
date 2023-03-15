@@ -8,11 +8,14 @@ public class Path : MonoBehaviour
 
     [SerializeField] private float moveSpeed;
 
+    private Vector3 lastpos;
+
     private int pointsIndex;
     // Start is called before the first frame update
     void Start()
     {
         transform.position = Points[pointsIndex].transform.position;
+        lastpos = transform.position;
     }
 
     // Update is called once per frame
@@ -26,7 +29,9 @@ public class Path : MonoBehaviour
             {
                 pointsIndex += 1;
             }
-
+            Vector3 direction = transform.position - lastpos;
+            transform.forward = Vector3.Lerp(transform.forward, direction, 0.1f);
         }
+        lastpos = transform.position;
     }
 }
