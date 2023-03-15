@@ -8,11 +8,20 @@ public class Path : MonoBehaviour
 
     [SerializeField] private float moveSpeed;
 
+    private Vector3 lastpos;
+
+    public Light flashlight;
+    public Light flashlightHalo;
+    public MeshRenderer playerMesh;
+    public Camera playerCam;
+
+    private bool Cinematic;
     private int pointsIndex;
     // Start is called before the first frame update
     void Start()
     {
         transform.position = Points[pointsIndex].transform.position;
+        lastpos = transform.position;
     }
 
     // Update is called once per frame
@@ -26,7 +35,15 @@ public class Path : MonoBehaviour
             {
                 pointsIndex += 1;
             }
-
+            Vector3 direction = transform.position - lastpos;
+            transform.forward = Vector3.Lerp(transform.forward, direction, 0.1f);
+        } else if(Cinematic == true){
+            playerCam.enabled = !playerCam.enabled;
+            flashlight.enabled = !flashlight.enabled;
+            flashlightHalo.enabled = !flashlightHalo.enabled;
+            playerMesh.enabled = playerMesh.enabled;
+            Cinematic = false;
         }
+        lastpos = transform.position;
     }
 }
