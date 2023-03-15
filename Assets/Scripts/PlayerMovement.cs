@@ -15,7 +15,6 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 velocity;
     bool isGrounded;
-    float z;
 
     // Update is called once per frame
     void Update()
@@ -27,7 +26,9 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = -2f;
         }
 
-        if(isGrounded && Input.GetButtonDown("Jump"))
+        float mouseScroll = Input.mouseScrollDelta.y;
+
+        if(isGrounded && (mouseScroll > 0) || isGrounded && Input.GetButtonDown("Jump"))
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
@@ -44,27 +45,7 @@ public class PlayerMovement : MonoBehaviour
 
         
         float x = Input.GetAxis("Horizontal");
-        
-
-        if(Input.GetKeyDown(KeyCode.Z))
-        {
-            z = 1;
-        }
-
-        if(Input.GetKeyUp(KeyCode.Z))
-        {
-            z = 0;
-        }
-
-        if(Input.GetKeyDown(KeyCode.S))
-        {
-            z = -1;
-        }
-
-        if(Input.GetKeyDown(KeyCode.S))
-        {
-            z = 0;
-        }
+        float z = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * x + transform.forward * z;
 
