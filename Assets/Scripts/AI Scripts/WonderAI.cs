@@ -60,7 +60,7 @@ public class WonderAI : MonoBehaviour
         else
         {
             timer += Time.deltaTime;
-            if (timer >= 3)
+            if (timer >= 10)
             {
                 enabled = false;
                 GetComponent<PatrolAI>().enabled = true;

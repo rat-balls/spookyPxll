@@ -6,9 +6,9 @@ using UnityEngine.AI;
 public class PatrolAI : MonoBehaviour
 {
     public NavMeshAgent navMeshAgent;
-    public float startWaitTime = 4;
-    public float timeToRotate = 2;
-    public float speedWalk = 2;
+    public float startWaitTime = 0f;
+    public float timeToRotate = 2f;
+    public float speedWalk = 3f;
     private Raycasting raycaster;
 
     public float maxSightDistance;

@@ -13,15 +13,18 @@ public class Path : MonoBehaviour
     public Light flashlight;
     public Light flashlightHalo;
     public MeshRenderer playerMesh;
+    public UnityEngine.AI.NavMeshAgent pixelle;
     public Camera playerCam;
+    public Camera carCam;
     public AudioSource radio;
+    public AudioSource gravel;
     public AudioLowPassFilter bassFilter;
 
     private bool Cinematic = true;
     private int pointsIndex;
     // Start is called before the first frame update
     void Start()
-    {
+    {   
         transform.position = Points[pointsIndex].transform.position;
         lastpos = transform.position;
     }
@@ -44,8 +47,12 @@ public class Path : MonoBehaviour
             flashlight.enabled = !flashlight.enabled;
             flashlightHalo.enabled = !flashlightHalo.enabled;
             playerMesh.enabled = !playerMesh.enabled;
-            bassFilter.enabled = !bassFilter.enabled;
+            carCam.enabled = !carCam.enabled;
+            gravel.enabled = !gravel.enabled;
+            pixelle.enabled = !pixelle.enabled;
             radio.spatialBlend = 1;
+            bassFilter.cutoffFrequency = 2786f;
+            bassFilter.lowpassResonanceQ = 4.8f;
             Cinematic = false;
         }
         lastpos = transform.position;

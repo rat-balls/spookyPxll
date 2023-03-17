@@ -5,7 +5,8 @@ using UnityEngine.AI;
 
 
 public class ChasingAI : MonoBehaviour
-{
+{   
+    public GameObject playerObj;
     public Transform player;
     public NavMeshAgent enemy;
     private Raycasting raycaster;
@@ -26,16 +27,17 @@ public class ChasingAI : MonoBehaviour
 
         enemy.SetDestination(player.position);
         transform.LookAt(player.transform);
+        enemy.speed = 23;
 
         float distance = Vector3.Distance(transform.position, player.position);
 
 
 
         if (raycaster.CanSeePlayer(maxSightDistance, sightIterations))
-        {
-            if (distance <= 1)
+        {   
+            if (distance <= 5)
             {
-                Debug.Log("T mor");
+                Destroy(playerObj);
             }
         }
         else
@@ -43,6 +45,7 @@ public class ChasingAI : MonoBehaviour
             fleetingTimer += Time.deltaTime;
             if (fleetingTimer >= 3)
             {
+                enemy.speed = 2;
                 fleetingTimer = 0;
                 enabled = false;
                 GetComponent<WonderAI>().enabled = true;
