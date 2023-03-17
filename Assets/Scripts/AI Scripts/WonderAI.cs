@@ -11,6 +11,17 @@ public class WonderAI : MonoBehaviour
     private bool isRotatingLeft = false;
     private bool isRotatingRight = false;
     private bool isWalking = false;
+    private Raycasting raycaster;
+
+    public float maxSightDistance;
+    public int sightIterations;
+
+    private float timer = 0f;
+
+    void Start()
+    {
+        raycaster = GetComponent<Raycasting>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -36,6 +47,26 @@ public class WonderAI : MonoBehaviour
             //gameObjet.GetComponent<Animator>().Play("");
             transform.position += transform.forward * Time.deltaTime * Speed;
 
+        }
+
+        if (raycaster.CanSeePlayer(maxSightDistance, sightIterations))
+        {
+            enabled = false;
+            GetComponent<LookingAI>().enabled = true;
+            timer = 0;
+            StopAllCoroutines();
+
+        }
+        else
+        {
+            timer += Time.deltaTime;
+            if (timer >= 3)
+            {
+                enabled = false;
+                GetComponent<PatrolAI>().enabled = true;
+                timer = 0;
+                StopAllCoroutines();
+            }
         }
     }
 
