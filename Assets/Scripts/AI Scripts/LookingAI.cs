@@ -7,39 +7,53 @@ public class LookingAI : MonoBehaviour
     public GameObject player;
     public GameObject pixelle;
     public float maxlimit;
-    private float Distance_;
 
     public bool chasing = false;
+    private float currentLookingTime = 0f;
+    private Raycasting raycaster;
+
+    public float maxSightDistance;
+    public int sightIterations;
+    private float Fleetingtimer = 0f;
 
     void Start()
     {
-        StartCoroutine(waiter());
+        raycaster = GetComponent<Raycasting>();
     }
 
     void Update()
     {
-  
-        Distance_ = Vector3.Distance(player.transform.position, pixelle.transform.position);
         
         transform.LookAt(player.transform);
-        this.GetComponent<WonderAI>().enabled = false;
-        StartCoroutine(waiter());
-        if (Distance_ <= gameObject.GetComponent<Raycasting>().maxSightDistance)
+
+        if (raycaster.CanSeePlayer(maxSightDistance, sightIterations))
         {
-            chasing = true;
-            Debug.Log("chasing");
+            currentLookingTime += Time.deltaTime;
+
+            if (currentLookingTime >= 3f)
+            {
+                enabled = false;
+                GetComponent<ChasingAI>().enabled = true;
+                currentLookingTime = 0;
+                Fleetingtimer = 0;
+
+
+            }
         }
         else
         {
-            this.GetComponent<WonderAI>().enabled = true;
-            Debug.Log("wander");
-            this.GetComponent<LookingAI>().enabled = false;
+            Fleetingtimer += Time.deltaTime;
 
+            if (Fleetingtimer >= 1f)
+            {
+                currentLookingTime = 0;
+                enabled = false;
+                GetComponent<WonderAI>().enabled = true;
+                Fleetingtimer = 0f;
+            }
         }
  
     }
-    IEnumerator waiter() {
-        yield return new WaitForSeconds(3);
-    }
+    
 
 }
