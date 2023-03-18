@@ -9,12 +9,8 @@ public class Path : MonoBehaviour
     [SerializeField] private float moveSpeed;
 
     private Vector3 lastpos;
-
-    public Light flashlight;
-    public Light flashlightHalo;
-    public MeshRenderer playerMesh;
+    public GameObject player;
     public UnityEngine.AI.NavMeshAgent pixelle;
-    public Camera playerCam;
     public Camera carCam;
     public AudioSource radio;
     public AudioSource gravel;
@@ -27,6 +23,8 @@ public class Path : MonoBehaviour
     {   
         transform.position = Points[pointsIndex].transform.position;
         lastpos = transform.position;
+        player.SetActive(false);
+
     }
 
     // Update is called once per frame
@@ -43,10 +41,7 @@ public class Path : MonoBehaviour
             Vector3 direction = transform.position - lastpos;
             transform.forward = Vector3.Lerp(transform.forward, direction, 0.1f);
         } else if(Cinematic == true){
-            playerCam.enabled = !playerCam.enabled;
-            flashlight.enabled = !flashlight.enabled;
-            flashlightHalo.enabled = !flashlightHalo.enabled;
-            playerMesh.enabled = !playerMesh.enabled;
+            player.SetActive(true);
             carCam.enabled = !carCam.enabled;
             gravel.enabled = !gravel.enabled;
             pixelle.enabled = !pixelle.enabled;

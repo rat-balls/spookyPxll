@@ -40,7 +40,7 @@ public class Flashlight : MonoBehaviour
                 }
             }
 
-            RandomFlashlightFunny = Random.Range(1, 2500);
+            RandomFlashlightFunny = Random.Range(1, 8600);
             if (RandomFlashlightFunny == 69)
             {
                 gameObject.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject.SetActive(false);
